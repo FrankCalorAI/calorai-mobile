@@ -75,9 +75,9 @@ const ProgressTree: React.FC = () => {
               className="mr-4 p-2 rounded-full bg-white/20"
               onPress={() => navigation.goBack()}
             >
-              <ArrowLeft size={24} color="white" />
+              <ArrowLeft size={24} color="black" />
             </TouchableOpacity>
-            <Text className="text-2xl font-bold text-white">Progress Tree</Text>
+            <Text className="text-2xl font-bold text-black">Progress Tree</Text>
           </View>
           <Text className="text-purple-100">Your epic weight loss quest</Text>
         </View>

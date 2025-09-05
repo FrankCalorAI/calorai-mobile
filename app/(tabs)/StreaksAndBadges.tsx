@@ -123,11 +123,11 @@ const StreaksAndBadges: React.FC = () => {
       <View className="bg-gradient-to-r from-purple-600 to-emerald-600 p-6">
         <View className="flex-row items-center mb-4">
           <TouchableOpacity className="mr-4 p-2 rounded-full bg-white/10">
-            <ArrowLeft size={24} color="white" />
+            <ArrowLeft size={24} color="black" />
           </TouchableOpacity>
-          <Text className="text-2xl font-bold text-white">Achievements</Text>
+          <Text className="text-2xl font-bold text-black">Achievements</Text>
         </View>
-        <Text className="text-purple-100">
+        <Text className="text-purple-500">
           Your streaks, badges, and rewards
         </Text>
       </View>
@@ -137,28 +137,28 @@ const StreaksAndBadges: React.FC = () => {
         <View className="bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl p-6 shadow-lg">
           <View className="flex-row justify-between items-center mb-4">
             <View className="flex-row items-center">
-              <View className="bg-white/20 p-3 rounded-full mr-4">
-                <Flame size={28} color="white" />
+              <View className="bg-black/20 p-3 rounded-full mr-4">
+                <Flame size={28} color="black" />
               </View>
               <View>
-                <Text className="text-2xl font-bold text-white">
+                <Text className="text-2xl font-bold text-black">
                   {currentStreak} Days
                 </Text>
-                <Text className="text-orange-100">Current Streak</Text>
+                <Text className="text-orange-500">Current Streak</Text>
               </View>
             </View>
             <View className="items-end">
-              <Text className="text-lg font-bold text-white">
+              <Text className="text-lg font-bold text-black">
                 {longestStreak}
               </Text>
-              <Text className="text-sm text-orange-100">Best</Text>
+              <Text className="text-sm text-orange-500">Best</Text>
             </View>
           </View>
 
-          <View className="bg-white/20 rounded-xl p-4">
+          <View className="bg-black/20 rounded-xl p-4">
             <View className="flex-row justify-between mb-2">
-              <Text className="text-white text-sm">Next Milestone</Text>
-              <Text className="text-white text-sm">
+              <Text className="text-black text-sm">Next Milestone</Text>
+              <Text className="text-black text-sm">
                 {currentStreak}/30 days
               </Text>
             </View>
@@ -246,20 +246,20 @@ const StreaksAndBadges: React.FC = () => {
                       ? `bg-gradient-to-br ${getRarityColor(
                           badge.rarity
                         )} shadow-lg`
-                      : `bg-gray-100 ${getRarityBorder(
+                      : `bg-gray-500 ${getRarityBorder(
                           badge.rarity
                         )} opacity-60`
                   }`}
                 >
                   {badge.earned && (
                     <View className="absolute -top-2 -right-2 bg-yellow-400 rounded-full p-1">
-                      <Star size={12} color="#92400E" />
+                      <Star size={12} color="black" />
                     </View>
                   )}
                   <View className="items-center">
                     <View
                       className={`w-16 h-16 mb-3 rounded-full items-center justify-center ${
-                        badge.earned ? "bg-white/20" : "bg-gray-200"
+                        badge.earned ? "bg-black/20" : "bg-gray-200"
                       }`}
                     >
                       <badge.icon
@@ -269,20 +269,20 @@ const StreaksAndBadges: React.FC = () => {
                     </View>
                     <Text
                       className={`font-bold text-sm mb-1 ${
-                        badge.earned ? "text-white" : "text-gray-500"
+                        badge.earned ? "text-black" : "text-gray-500"
                       }`}
                     >
                       {badge.name}
                     </Text>
                     <Text
                       className={`text-xs text-center ${
-                        badge.earned ? "text-white/80" : "text-gray-400"
+                        badge.earned ? "text-black/80" : "text-gray-100"
                       }`}
                     >
                       {badge.description}
                     </Text>
                     {badge.earned && badge.earnedDate && (
-                      <Text className="text-xs text-white/60 mt-2">
+                      <Text className="text-xs text-black/60 mt-2">
                         Earned:{" "}
                         {new Date(badge.earnedDate).toLocaleDateString()}
                       </Text>
@@ -290,8 +290,8 @@ const StreaksAndBadges: React.FC = () => {
                     <View
                       className={`px-2 py-1 rounded-full text-xs font-medium mt-2 ${
                         badge.earned
-                          ? "bg-white/20 text-white"
-                          : "bg-gray-200 text-gray-500"
+                          ? "bg-black/20 text-black"
+                          : "bg-gray-500 text-gray-700"
                       }`}
                     >
                       <Text>{badge.rarity}</Text>
@@ -332,46 +332,46 @@ const StreaksAndBadges: React.FC = () => {
 
         {/* Next Rewards Preview */}
         <View className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 shadow-lg">
-          <Text className="text-lg font-bold text-white mb-3">
+          <Text className="text-lg font-bold text-black mb-3">
             Coming Up Next
           </Text>
           <View className="space-y-3">
-            <View className="flex-row justify-between items-center bg-white/20 rounded-xl p-3">
+            <View className="flex-row justify-between items-center bg-black/20 rounded-xl p-3">
               <View className="flex-row items-center">
                 <Crown size={20} color="#FACC15" className="mr-3" />
                 <View>
-                  <Text className="font-semibold text-white">
+                  <Text className="font-semibold text-black">
                     Monthly Champion
                   </Text>
-                  <Text className="text-sm text-purple-100">
+                  <Text className="text-sm text-purple-500">
                     30 day streak
                   </Text>
                 </View>
               </View>
               <View className="items-end">
-                <Text className="text-sm font-medium text-white">
+                <Text className="text-sm font-medium text-black">
                   {Math.max(0, 30 - currentStreak)} days left
                 </Text>
-                <Text className="text-xs text-purple-100">+250 XP</Text>
+                <Text className="text-xs text-purple-500">+250 XP</Text>
               </View>
             </View>
-            <View className="flex-row justify-between items-center bg-white/20 rounded-xl p-3">
+            <View className="flex-row justify-between items-center bg-black/20 rounded-xl p-3">
               <View className="flex-row items-center">
                 <Shield size={20} color="#93C5FD" className="mr-3" />
                 <View>
-                  <Text className="font-semibold text-white">
+                  <Text className="font-semibold text-black">
                     Protein Champion
                   </Text>
-                  <Text className="text-sm text-purple-100">
+                  <Text className="text-sm text-purple-500">
                     14 days meeting protein goals
                   </Text>
                 </View>
               </View>
               <View className="items-end">
-                <Text className="text-sm font-medium text-white">
+                <Text className="text-sm font-medium text-black">
                   Not started
                 </Text>
-                <Text className="text-xs text-purple-100">+150 XP</Text>
+                <Text className="text-xs text-purple-500">+150 XP</Text>
               </View>
             </View>
           </View>

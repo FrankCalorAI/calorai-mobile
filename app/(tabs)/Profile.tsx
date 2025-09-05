@@ -1,17 +1,17 @@
-import React from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import {
   ArrowLeft,
-  User,
-  Edit,
-  Trophy,
-  Target,
   Calendar,
-  TrendingUp,
+  Edit,
   Settings as SettingsIcon,
+  Target,
+  TrendingUp,
+  Trophy,
+  User,
 } from "lucide-react-native";
+import React from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Profile = () => {
   const insets = useSafeAreaInsets();
@@ -49,12 +49,12 @@ const Profile = () => {
       <View className="bg-gradient-to-r from-purple-600 to-emerald-600 p-6">
         <View className="flex-row items-center mb-4">
           <TouchableOpacity
-            className="mr-4 p-2 rounded-full bg-white bg-opacity-20"
+            className="mr-4 p-2 rounded-full bg-black bg-opacity-20"
             onPress={() => router.back()}
           >
             <ArrowLeft size={24} color="white" />
           </TouchableOpacity>
-          <Text className="text-2xl font-bold text-white">Profile</Text>
+          <Text className="text-2xl font-bold text-black">Profile</Text>
         </View>
       </View>
 
@@ -178,7 +178,7 @@ const Profile = () => {
             className="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl items-center"
             onPress={() => router.push("/StreaksAndBadges")}
           >
-            <Text className="text-white font-medium">View All Achievements</Text>
+            <Text className="text-black font-medium">View All Achievements</Text>
           </TouchableOpacity>
         </View>
 

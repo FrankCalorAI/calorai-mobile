@@ -84,11 +84,11 @@ const Settings: React.FC = () => {
       <View className="bg-gradient-to-r from-purple-600 to-emerald-600 p-6">
         <View className="flex-row items-center mb-3">
           <TouchableOpacity className="mr-4 p-2 rounded-full bg-white/10">
-            <ArrowLeft size={24} color="white" />
+            <ArrowLeft size={24} color="black" />
           </TouchableOpacity>
-          <Text className="text-2xl font-bold text-white">Settings</Text>
+          <Text className="text-2xl font-bold text-black">Settings</Text>
         </View>
-        <Text className="text-purple-100">Customize your CalorAI experience</Text>
+        <Text className="text-purple-500">Customize your CalorAI experience</Text>
       </View>
 
       <ScrollView contentContainerClassName="p-6 space-y-6 pb-20">
