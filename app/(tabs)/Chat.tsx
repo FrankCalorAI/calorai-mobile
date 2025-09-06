@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,8 @@ import {
   ScrollView,
   FlatList,
   KeyboardAvoidingView,
-  Platform,
+  SafeAreaView,
+  Animated,
 } from "react-native";
 import {
   ArrowLeft,
@@ -16,8 +17,11 @@ import {
   Smile,
   Camera,
   Mic,
+  Sparkles,
+  Zap,
+  Trophy,
+  Target,
 } from "lucide-react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Message {
   id: string;
@@ -28,10 +32,15 @@ interface Message {
 }
 
 const Chat: React.FC = () => {
+  const floatAnim = useRef(new Animated.Value(0)).current;
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+  const glowAnim = useRef(new Animated.Value(0.9)).current;
+  const bounceAnim = useRef(new Animated.Value(1)).current;
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hi there! I'm Cal-ee, your AI nutritionist. I see you've been doing great with your streak! How can I help you today? 🌟",
+      text: "Hey there, champion! I'm Cal-ee, your AI nutrition coach. I see you've been crushing that 12-day streak - absolutely legendary! How can I power up your nutrition game today?",
       sender: "calee",
       timestamp: new Date(Date.now() - 300000),
     },
@@ -43,7 +52,7 @@ const Chat: React.FC = () => {
     },
     {
       id: "3",
-      text: "Don't worry! One cheat meal won't derail your progress. What matters is getting back on track, which you're already doing by checking in here. Your 12-day streak shows you have great consistency. Focus on your next meal being nutritious! 💪",
+      text: "Listen up, warrior! One battle doesn't lose the war. Your 12-day streak proves you're a nutrition champion. That cheat meal? It's just fuel for your comeback story. Focus on your next power meal and keep building that legendary streak!",
       sender: "calee",
       timestamp: new Date(Date.now() - 180000),
     },
@@ -53,10 +62,76 @@ const Chat: React.FC = () => {
 
   const suggestions = [
     "What should I eat for lunch?",
-    "How many calories in my breakfast?",
-    "Tips for meal prep",
-    "Healthy snack ideas",
+    "Analyze my breakfast calories",
+    "Power-up meal prep tips",
+    "Epic healthy snack ideas",
   ];
+
+  useEffect(() => {
+    // Floating animation
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(floatAnim, {
+          toValue: -6,
+          duration: 2500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(floatAnim, {
+          toValue: 0,
+          duration: 2500,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+
+    // Pulse animation
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1.05,
+          duration: 1800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+
+    // Glow animation
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(glowAnim, {
+          toValue: 1.1,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(glowAnim, {
+          toValue: 0.9,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+
+    // Bounce animation
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(bounceAnim, {
+          toValue: 1.03,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(bounceAnim, {
+          toValue: 1,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
 
   const handleSendMessage = () => {
     if (!inputText.trim()) return;
@@ -72,9 +147,16 @@ const Chat: React.FC = () => {
     setInputText("");
 
     setTimeout(() => {
+      const responses = [
+        "Amazing question! Let me analyze your nutrition data and power up your strategy with personalized advice!",
+        "Great thinking, champion! I'm processing your request with my advanced nutrition algorithms. Victory incoming!",
+        "Excellent! I'm diving deep into your nutrition profile to craft the perfect battle plan for your goals!",
+        "Fantastic question! My AI nutrition sensors are analyzing your progress. Prepare for some game-changing advice!",
+      ];
+
       const response: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Thanks for your question! I'm analyzing your request and will get back to you with personalized advice based on your progress and goals. 🤖",
+        text: responses[Math.floor(Math.random() * responses.length)],
         sender: "calee",
         timestamp: new Date(),
       };
@@ -87,26 +169,75 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gradient-to-br from-purple-50 to-emerald-50">
-      {/* Wrap input with KeyboardAvoidingView */}
-      <KeyboardAvoidingView
-        className="flex-1"
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
+    <SafeAreaView className="flex-1 bg-gray-50">
+      <KeyboardAvoidingView className="flex-1 pb-[30px]">
         {/* Header */}
-        <View className="bg-purple-600 p-6 flex-row items-center">
-          <TouchableOpacity className="mr-4 p-2 rounded-full">
-            <ArrowLeft size={24} color="white" />
-          </TouchableOpacity>
-          <View className="flex-row items-center">
-            <View className="w-10 h-10 bg-orange-400 rounded-full items-center justify-center mr-3">
-              <Bot size={20} color="white" />
-            </View>
-            <View>
-              <Text className="text-xl font-bold text-white">Cal-ee</Text>
-              <View className="flex-row items-center">
-                <View className="w-2 h-2 bg-green-400 rounded-full mr-2" />
-                <Text className="text-sm text-purple-100">Online</Text>
+        <View className="bg-gradient-to-br from-blueViolet via-deepTeal to-blackCherry px-4 py-4 relative overflow-hidden shadow-xl">
+          {/* 3D Background Elements */}
+          <View className="absolute inset-0 opacity-8">
+            <Animated.View
+              className="absolute top-3 right-8 w-8 h-8 bg-mangoYellow rounded-lg transform rotate-45 shadow-lg"
+              style={{ transform: [{ scale: glowAnim }] }}
+            />
+            <Animated.View
+              className="absolute top-12 right-6 w-5 h-5 bg-coralRed rounded-full shadow-md"
+              style={{ transform: [{ translateY: floatAnim }] }}
+            />
+            <Animated.View
+              className="absolute bottom-8 right-16 w-4 h-4 bg-mintGreen transform rotate-12 shadow-md"
+              style={{ transform: [{ scale: bounceAnim }] }}
+            />
+          </View>
+
+          <View className="flex-row items-center relative z-10">
+            <TouchableOpacity className="mr-4 p-2 rounded-full bg-blackCherry/20 shadow-lg">
+              <ArrowLeft size={20} color="#49061A" />
+            </TouchableOpacity>
+
+            <View className="flex-row items-center flex-1">
+              <Animated.View
+                className="relative mr-3"
+                style={{ transform: [{ scale: pulseAnim }] }}
+              >
+                <View className="w-12 h-12 bg-gradient-to-br from-coralRed to-mangoYellow rounded-2xl items-center justify-center shadow-xl">
+                  <Bot size={24} color="#49061A" />
+                </View>
+                {/* Floating sparkles */}
+                <Animated.View
+                  className="absolute -top-1 -right-1"
+                  style={{ transform: [{ translateY: floatAnim }] }}
+                >
+                  <Sparkles size={12} color="#FFA726" fill="#FFA726" />
+                </Animated.View>
+              </Animated.View>
+
+              <View className="flex-1">
+                <View className="flex-row items-center">
+                  <Text className="text-xl font-black text-blackCherry drop-shadow-sm">
+                    Cal-ee
+                  </Text>
+                  <Animated.View
+                    className="ml-2"
+                    style={{ transform: [{ scale: pulseAnim }] }}
+                  >
+                    <Zap size={16} color="#F95341" fill="#F95341" />
+                  </Animated.View>
+                </View>
+                <View className="flex-row items-center mt-1">
+                  <Animated.View
+                    className="w-2 h-2 bg-mintGreen rounded-full mr-2 shadow-sm"
+                    style={{ transform: [{ scale: glowAnim }] }}
+                  />
+                  <Text className="text-sm text-blackCherry font-bold drop-shadow-sm">
+                    AI Trainer Online
+                  </Text>
+                  <Trophy
+                    size={12}
+                    color="#FFA726"
+                    fill="#FFA726"
+                    className="ml-2"
+                  />
+                </View>
               </View>
             </View>
           </View>
@@ -116,16 +247,22 @@ const Chat: React.FC = () => {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          className="p-4"
+          className="px-4 py-3"
         >
           {suggestions.map((suggestion, index) => (
-            <TouchableOpacity
+            <Animated.View
               key={index}
-              onPress={() => handleSuggestionClick(suggestion)}
-              className="bg-white border border-purple-200 px-4 py-2 rounded-full mr-2"
+              style={{ transform: [{ scale: bounceAnim }] }}
             >
-              <Text className="text-purple-600 text-sm">{suggestion}</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleSuggestionClick(suggestion)}
+                className="bg-gradient-to-r from-melonMist/20 to-mangoYellow/20 border-2 border-coralRed/30 px-4 py-2 rounded-2xl mr-3 shadow-lg"
+              >
+                <Text className="text-blackCherry text-sm font-bold drop-shadow-sm">
+                  {suggestion}
+                </Text>
+              </TouchableOpacity>
+            </Animated.View>
           ))}
         </ScrollView>
 
@@ -137,33 +274,46 @@ const Chat: React.FC = () => {
             <View
               className={`flex ${
                 item.sender === "user" ? "items-end" : "items-start"
-              } mb-3`}
+              } mb-4`}
             >
-              <View
-                className={`max-w-[70%] px-4 py-3 rounded-2xl ${
+              <Animated.View
+                style={{ transform: [{ scale: bounceAnim }] }}
+                className={`max-w-[80%] px-4 py-3 rounded-3xl shadow-lg ${
                   item.sender === "user"
-                    ? "bg-purple-600 rounded-br-md"
-                    : "bg-white rounded-bl-md"
+                    ? "bg-gradient-to-br from-blueViolet to-deepTeal rounded-br-lg border-2 border-blueViolet/30"
+                    : "bg-gradient-to-br from-melonMist/30 to-mangoYellow/20 rounded-bl-lg border-2 border-coralRed/25"
                 }`}
               >
                 {item.sender === "calee" && (
-                  <View className="flex-row items-center mb-1">
-                    <Bot size={14} color="#9333ea" />
-                    <Text className="ml-1 text-xs text-purple-600 font-medium">
-                      Cal-ee
+                  <View className="flex-row items-center mb-2">
+                    <View className="bg-coralRed/20 rounded-full p-1 mr-2 shadow-sm">
+                      <Bot size={12} color="#F95341" />
+                    </View>
+                    <Text className="text-xs text-blackCherry font-black drop-shadow-sm">
+                      Cal-ee AI Coach
                     </Text>
+                    <Animated.View
+                      className="ml-1"
+                      style={{ transform: [{ scale: pulseAnim }] }}
+                    >
+                      <Target size={10} color="#4BD883" fill="#4BD883" />
+                    </Animated.View>
                   </View>
                 )}
                 <Text
-                  className={`text-sm ${
-                    item.sender === "user" ? "text-white" : "text-gray-800"
+                  className={`text-sm font-semibold drop-shadow-sm ${
+                    item.sender === "user"
+                      ? "text-blackCherry"
+                      : "text-blackCherry"
                   }`}
                 >
                   {item.text}
                 </Text>
                 <Text
-                  className={`text-[10px] mt-1 ${
-                    item.sender === "user" ? "text-purple-200" : "text-gray-500"
+                  className={`text-xs mt-2 font-bold ${
+                    item.sender === "user"
+                      ? "text-blackCherry/70"
+                      : "text-deepTeal"
                   }`}
                 >
                   {item.timestamp.toLocaleTimeString([], {
@@ -171,46 +321,63 @@ const Chat: React.FC = () => {
                     minute: "2-digit",
                   })}
                 </Text>
-              </View>
+              </Animated.View>
             </View>
           )}
-          contentContainerStyle={{ padding: 16 }}
+          contentContainerStyle={{ padding: 16, paddingBottom: 100 }}
         />
 
         {/* Input Area */}
-        <View className="p-4 bg-white border-t border-gray-200 flex-row items-center space-x-3">
-          <TouchableOpacity>
-            <Camera size={20} color="#9CA3AF" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Mic size={20} color="#9CA3AF" />
-          </TouchableOpacity>
-          <View className="flex-1 relative">
-            <TextInput
-              value={inputText}
-              onChangeText={setInputText}
-              onSubmitEditing={handleSendMessage}
-              placeholder="Ask Cal-ee anything..."
-              className="w-full py-3 px-4 pr-10 bg-gray-100 rounded-full text-sm"
-            />
-            <TouchableOpacity className="absolute right-3 top-3">
-              <Smile size={16} color="#9CA3AF" />
-            </TouchableOpacity>
+        <View className="bg-gradient-to-r from-melonMist/10 to-mangoYellow/10 border-t-2 border-coralRed/20 p-4 shadow-xl">
+          <View className="flex-row items-center gap-3">
+            {!inputText.trim() && (
+              <>
+                <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
+                  <TouchableOpacity className="bg-gradient-to-br from-mintGreen/20 to-malachiteGreen/30 p-3 rounded-2xl shadow-lg border border-mintGreen/40">
+                    <Camera size={18} color="#49061A" />
+                  </TouchableOpacity>
+                </Animated.View>
+
+                <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
+                  <TouchableOpacity className="bg-gradient-to-br from-mangoYellow/20 to-coralRed/20 p-3 rounded-2xl shadow-lg border border-coralRed/40">
+                    <Mic size={18} color="#49061A" />
+                  </TouchableOpacity>
+                </Animated.View>
+              </>
+            )}
+            <View className="flex-1 relative">
+              <TextInput
+                value={inputText}
+                onChangeText={setInputText}
+                onSubmitEditing={handleSendMessage}
+                placeholder="Ask Cal-ee for nutrition power-ups..."
+                placeholderTextColor="#49061A80"
+                className="w-full py-4 px-5 pr-12 bg-melonMist/20 rounded-2xl text-sm font-semibold text-blackCherry border-2 border-coralRed/20 shadow-lg"
+              />
+            </View>
+
+            <Animated.View
+              style={{
+                transform: [{ scale: inputText.trim() ? glowAnim : 1 }],
+              }}
+            >
+              
+              <TouchableOpacity
+                onPress={handleSendMessage}
+                disabled={!inputText.trim()}
+                className={`p-4 rounded-2xl shadow-xl border-2 transition-all duration-300 ${
+                  inputText.trim()
+                    ? "bg-gradient-to-br from-coralRed to-mangoYellow border-coralRed/40"
+                    : "bg-gray-200 border-gray-300"
+                }`}
+              >
+                <Send
+                  size={10}
+                  color={inputText.trim() ? "#49061A" : "#9CA3AF"}
+                />
+              </TouchableOpacity>
+            </Animated.View>
           </View>
-          <TouchableOpacity
-            onPress={handleSendMessage}
-            disabled={!inputText.trim()}
-            className={`p-3 rounded-full ${
-              inputText.trim()
-                ? "bg-purple-600"
-                : "bg-gray-200"
-            }`}
-          >
-            <Send
-              size={18}
-              color={inputText.trim() ? "white" : "#9CA3AF"}
-            />
-          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>

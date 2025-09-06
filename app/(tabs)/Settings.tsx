@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View, Text, TouchableOpacity, ScrollView, Switch, SafeAreaView } from "react-native";
 import {
   ArrowLeft,
   Bell,
@@ -91,7 +90,7 @@ const Settings: React.FC = () => {
         <Text className="text-purple-500">Customize your CalorAI experience</Text>
       </View>
 
-      <ScrollView contentContainerClassName="p-6 space-y-6 pb-20">
+      <ScrollView contentContainerClassName="p-6 gap-6 pb-20">
         {settingsGroups.map((group, groupIndex) => (
           <View
             key={groupIndex}
@@ -146,8 +145,8 @@ const Settings: React.FC = () => {
 
         {/* App Info */}
         <View className="bg-white rounded-2xl p-6 shadow-lg items-center">
-          <View className="w-16 h-16 bg-gradient-to-r from-purple-500 to-emerald-500 rounded-2xl items-center justify-center mb-4">
-            <Text className="text-2xl font-bold text-white">C</Text>
+          <View className="w-16 h-16 bg-blackCherry rounded-2xl items-center justify-center mb-4">
+            <Text className="text-2xl font-bold text-gray-100">C</Text>
           </View>
           <Text className="text-lg font-bold text-gray-800 mb-2">CalorAI</Text>
           <Text className="text-gray-600 text-sm mb-4 text-center">
