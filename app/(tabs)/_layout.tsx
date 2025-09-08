@@ -13,6 +13,8 @@ export default function Layout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,
+        animation: "shift",
         tabBarActiveTintColor: "#7843FF",
         tabBarInactiveTintColor: "#A3A3A3",
         tabBarStyle: {
@@ -42,7 +44,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="Chat"
+        name="chat"
         options={{
           title: "",
           tabBarIcon: ({ color, size }) => (
@@ -51,7 +53,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="ProgressTree"
+        name="progressTree"
         options={{
           title: "",
           tabBarIcon: ({ color, size }) => (
@@ -60,28 +62,19 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="StreaksAndBadges"
+        name="streaksAndBadges"
         options={{
           title: "",
           tabBarIcon: ({ color, size }) => <Award color={color} size={size} />,
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name="profile"
         options={{
           title: "",
           tabBarIcon: ({ color, size }) => <User color={color} size={size} />,
         }}
       />
-      <Tabs.Screen
-        name="Settings"
-        options={{
-          title: "",
-          tabBarIcon: ({ color, size }) => (
-            <Settings color={color} size={size} />
-          ),
-        }}
-      />
     </Tabs>
   );
-};
+}

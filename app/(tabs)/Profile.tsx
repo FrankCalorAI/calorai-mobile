@@ -252,7 +252,7 @@ const Profile = () => {
             {[
               {
                 label: "View Progress Tree",
-                route: "/progress",
+                route: "/streaksAndBadges",
                 icon: TrendingUp,
                 color: "#7c3aed",
               },
@@ -266,6 +266,7 @@ const Profile = () => {
               <TouchableOpacity
                 key={index}
                 className="flex-row justify-between p-4 rounded-xl bg-gray-50"
+                // @ts-ignore
                 onPress={() => router.push(link.route)}
               >
                 <View className="flex-row items-center">

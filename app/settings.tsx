@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity, ScrollView, Switch, SafeAreaView } from "react-native";
 import {
   ArrowLeft,
@@ -14,6 +15,7 @@ import {
 const Settings: React.FC = () => {
   const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
+  const router = useRouter();
 
   const settingsGroups = [
     {
@@ -82,7 +84,9 @@ const Settings: React.FC = () => {
       {/* Header */}
       <View className="bg-gradient-to-r from-purple-600 to-emerald-600 p-6">
         <View className="flex-row items-center mb-3">
-          <TouchableOpacity className="mr-4 p-2 rounded-full bg-white/10">
+          <TouchableOpacity className="mr-4 p-2 rounded-full bg-white/10"
+          onPress={() => router.back()}
+          >
             <ArrowLeft size={24} color="black" />
           </TouchableOpacity>
           <Text className="text-2xl font-bold text-black">Settings</Text>

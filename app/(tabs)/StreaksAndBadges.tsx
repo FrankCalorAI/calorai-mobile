@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Animated,
 } from "react-native";
+import { useRouter } from "expo-router";
 import {
   ArrowLeft,
   Flame,
@@ -23,6 +24,7 @@ import {
 
 const StreaksAndBadges: React.FC = () => {
   const flameAnim = useRef(new Animated.Value(1)).current;
+  const router = useRouter();
 
   const currentStreak = 12;
   const longestStreak = 28;
@@ -175,7 +177,9 @@ const StreaksAndBadges: React.FC = () => {
       {/* Header */}
       <View className="bg-gradient-to-r from-blueViolet to-deepTeal px-5 py-6 rounded-b-2xl mx-2 mt-2">
         <View className="flex-row items-center">
-          <TouchableOpacity className="mr-4 p-2 rounded-xl bg-black/20">
+          <TouchableOpacity className="mr-4 p-2 rounded-xl bg-black/20"
+          onPress={() => router.back()}
+          >
             <ArrowLeft size={22} color="black" />
           </TouchableOpacity>
 

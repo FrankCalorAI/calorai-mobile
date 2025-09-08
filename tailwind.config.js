@@ -18,6 +18,10 @@ module.exports = {
         blackCherry: "#49061A",
         blueViolet: "#7843FF",
       },
+      fontFamily: {
+        inter: ["Inter"],
+        interBold: ["InterBold"],
+      }      
     },
   },
   plugins: [],

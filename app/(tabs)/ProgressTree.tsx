@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useMemo, useRef } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import StreaksAndBadges from "./streaksAndBadges";
+
 import {
   ArrowLeft,
   Crown,
@@ -14,9 +16,19 @@ import {
   Calendar,
   MapPin,
 } from "lucide-react-native";
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from "@gorhom/bottom-sheet";
 
 const ProgressTree: React.FC = () => {
   const navigation = useNavigation();
+  const sheetRef = useRef<BottomSheetModal>(null);
+  const snapPoints = useMemo(() => ["50%", "90%"], []);
+
+  const openSheet = () => {
+    sheetRef.current?.present();
+  };
 
   const progressData = [
     {
@@ -91,16 +103,21 @@ const ProgressTree: React.FC = () => {
   const getMilestoneIcon = (milestone: string | null, onTrack: boolean) => {
     if (milestone === "start") return <Crown color="#49061A" size={24} />;
     if (milestone === "current") return <MapPin color="#F95341" size={24} />;
-    if (milestone?.includes("month")) return <Trophy color="#FFA726" size={24} />;
+    if (milestone?.includes("month"))
+      return <Trophy color="#FFA726" size={24} />;
     if (milestone?.includes("week")) return <Award color="#7843FF" size={24} />;
     return <Star color="#4BD883" size={24} />;
   };
 
   const getMilestoneColors = (milestone: string | null, isLast: boolean) => {
-    if (milestone === "start") return "from-blueViolet/20 to-deepTeal/30 border-blueViolet/40";
-    if (milestone === "current") return "from-coralRed/20 to-mangoYellow/20 border-coralRed/40";
-    if (milestone?.includes("month")) return "from-mangoYellow/20 to-melonMist/30 border-mangoYellow/40";
-    if (milestone?.includes("week")) return "from-mintGreen/20 to-malachiteGreen/30 border-mintGreen/40";
+    if (milestone === "start")
+      return "from-blueViolet/20 to-deepTeal/30 border-blueViolet/40";
+    if (milestone === "current")
+      return "from-coralRed/20 to-mangoYellow/20 border-coralRed/40";
+    if (milestone?.includes("month"))
+      return "from-mangoYellow/20 to-melonMist/30 border-mangoYellow/40";
+    if (milestone?.includes("week"))
+      return "from-mintGreen/20 to-malachiteGreen/30 border-mintGreen/40";
     return "from-gray-100 to-gray-200 border-gray-300";
   };
 
@@ -116,8 +133,12 @@ const ProgressTree: React.FC = () => {
             <ArrowLeft size={22} color="white" />
           </TouchableOpacity>
           <View className="flex-1">
-            <Text className="text-2xl font-black text-white">Progress Journey</Text>
-            <Text className="text-white/80 font-semibold">Your transformation story</Text>
+            <Text className="text-2xl font-black text-white">
+              Progress Journey
+            </Text>
+            <Text className="text-white/80 font-semibold">
+              Your transformation story
+            </Text>
           </View>
           <View className="bg-white/15 rounded-xl p-3">
             <TrendingUp size={26} color="white" />
@@ -125,13 +146,17 @@ const ProgressTree: React.FC = () => {
         </View>
       </View>
 
-      <ScrollView className="flex-1 px-3 py-6" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        className="flex-1 px-3 py-6"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 200 }}
+      >
         {/* Progress Summary */}
         <View className="mb-8">
           <Text className="text-xl font-black text-blackCherry mb-4 px-2">
             Journey Overview
           </Text>
-          
+
           <View className="bg-gradient-to-br from-mangoYellow/15 to-coralRed/10 rounded-2xl p-6 border-2 border-coralRed/20 mb-6">
             <View className="items-center mb-6">
               <Text className="text-2xl font-black text-blackCherry mb-3">
@@ -151,28 +176,36 @@ const ProgressTree: React.FC = () => {
                 <Text className="text-2xl font-black text-blackCherry">
                   {startWeight}kg
                 </Text>
-                <Text className="text-sm text-deepTeal font-bold">Quest Start</Text>
+                <Text className="text-sm text-deepTeal font-bold">
+                  Quest Start
+                </Text>
               </View>
               <View className="flex-1 mx-1 p-4 bg-gradient-to-br from-mintGreen/20 to-malachiteGreen/30 rounded-xl items-center border border-mintGreen/40">
                 <Target size={20} color="#49061A" className="mb-2" />
                 <Text className="text-2xl font-black text-blackCherry">
                   {currentWeight}kg
                 </Text>
-                <Text className="text-sm text-deepTeal font-bold">Current Level</Text>
+                <Text className="text-sm text-deepTeal font-bold">
+                  Current Level
+                </Text>
               </View>
               <View className="flex-1 mx-1 p-4 bg-gradient-to-br from-coralRed/20 to-mangoYellow/30 rounded-xl items-center border border-coralRed/30">
                 <Trophy size={20} color="#49061A" className="mb-2" />
                 <Text className="text-2xl font-black text-blackCherry">
                   {targetWeight}kg
                 </Text>
-                <Text className="text-sm text-deepTeal font-bold">Final Goal</Text>
+                <Text className="text-sm text-deepTeal font-bold">
+                  Final Goal
+                </Text>
               </View>
             </View>
 
             {/* Progress bar */}
             <View className="bg-white/40 rounded-xl p-4">
               <View className="flex-row justify-between mb-3">
-                <Text className="font-black text-blackCherry">Quest Completion</Text>
+                <Text className="font-black text-blackCherry">
+                  Quest Completion
+                </Text>
                 <Text className="font-black text-malachiteGreen text-lg">
                   {progressPercentage.toFixed(1)}%
                 </Text>
@@ -192,13 +225,17 @@ const ProgressTree: React.FC = () => {
           <Text className="text-xl font-black text-blackCherry mb-4 px-2">
             Adventure Stats
           </Text>
-          
+
           <View className="flex-row -mx-1">
             <View className="flex-1 mx-1">
               <View className="bg-gradient-to-br from-blueViolet/15 to-deepTeal/20 rounded-xl p-4 items-center border border-blueViolet/30">
                 <Calendar size={20} color="#49061A" className="mb-2" />
                 <Text className="text-xl font-black text-blackCherry">
-                  {Math.ceil((new Date().getTime() - new Date(progressData[0].date).getTime()) / (1000 * 3600 * 24))}
+                  {Math.ceil(
+                    (new Date().getTime() -
+                      new Date(progressData[0].date).getTime()) /
+                      (1000 * 3600 * 24)
+                  )}
                 </Text>
                 <Text className="text-sm text-deepTeal font-bold text-center">
                   Days on Quest
@@ -209,7 +246,7 @@ const ProgressTree: React.FC = () => {
               <View className="bg-gradient-to-br from-mintGreen/15 to-malachiteGreen/20 rounded-xl p-4 items-center border border-mintGreen/30">
                 <Trophy size={20} color="#49061A" className="mb-2" />
                 <Text className="text-xl font-black text-blackCherry">
-                  {progressData.filter(p => p.badgeEarned).length}
+                  {progressData.filter((p) => p.badgeEarned).length}
                 </Text>
                 <Text className="text-sm text-deepTeal font-bold text-center">
                   Badges Won
@@ -246,11 +283,23 @@ const ProgressTree: React.FC = () => {
 
           <View className="bg-white rounded-2xl border-2 border-gray-200">
             {progressData.map((point, index) => (
-              <View key={point.date} className={`flex-row p-5 ${index !== progressData.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                <View className={`w-16 h-16 rounded-2xl items-center justify-center bg-gradient-to-br ${getMilestoneColors(point.milestone, index === progressData.length - 1)} border-2`}>
+              <View
+                key={point.date}
+                className={`flex-row p-5 ${
+                  index !== progressData.length - 1
+                    ? "border-b border-gray-100"
+                    : ""
+                }`}
+              >
+                <View
+                  className={`w-16 h-16 rounded-2xl items-center justify-center bg-gradient-to-br ${getMilestoneColors(
+                    point.milestone,
+                    index === progressData.length - 1
+                  )} border-2`}
+                >
                   {getMilestoneIcon(point.milestone, point.onTrack)}
                 </View>
-                
+
                 <View className="ml-5 flex-1">
                   <View className="flex-row items-center justify-between mb-2">
                     <Text className="font-black text-blackCherry text-lg">
@@ -264,17 +313,17 @@ const ProgressTree: React.FC = () => {
                       </View>
                     )}
                   </View>
-                  
+
                   <Text className="text-sm text-deepTeal font-semibold mb-2">
                     {point.description}
                   </Text>
-                  
+
                   <View className="flex-row items-center justify-between">
                     <Text className="text-xs text-gray-500 font-bold">
                       {new Date(point.date).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
-                        year: "numeric"
+                        year: "numeric",
                       })}
                     </Text>
                     <View className="flex-row items-center">
@@ -301,7 +350,7 @@ const ProgressTree: React.FC = () => {
           <Text className="text-xl font-black text-blackCherry mb-4 px-2">
             Next Adventure
           </Text>
-          
+
           <View className="bg-gradient-to-r from-blueViolet/10 to-deepTeal/15 rounded-2xl p-5 border-2 border-blueViolet/25">
             <View className="flex-row items-center mb-3">
               <View className="bg-gradient-to-br from-coralRed to-mangoYellow rounded-xl p-3 mr-4">
@@ -316,7 +365,7 @@ const ProgressTree: React.FC = () => {
                 </Text>
               </View>
             </View>
-            
+
             <View className="bg-white/60 rounded-xl p-4">
               <View className="flex-row justify-between items-center">
                 <Text className="font-black text-blackCherry">
@@ -329,6 +378,9 @@ const ProgressTree: React.FC = () => {
             </View>
           </View>
         </View>
+        <TouchableOpacity onPress={() => openSheet()}>
+          <Text>View Achievements</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );

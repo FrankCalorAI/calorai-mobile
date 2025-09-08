@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "expo-router";
 import {
   View,
   Text,
@@ -14,7 +15,6 @@ import {
   ArrowLeft,
   Send,
   Bot,
-  Smile,
   Camera,
   Mic,
   Sparkles,
@@ -36,6 +36,7 @@ const Chat: React.FC = () => {
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const glowAnim = useRef(new Animated.Value(0.9)).current;
   const bounceAnim = useRef(new Animated.Value(1)).current;
+  const router = useRouter();
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -190,7 +191,9 @@ const Chat: React.FC = () => {
           </View>
 
           <View className="flex-row items-center relative z-10">
-            <TouchableOpacity className="mr-4 p-2 rounded-full bg-blackCherry/20 shadow-lg">
+            <TouchableOpacity className="mr-4 p-2 rounded-full bg-blackCherry/20 shadow-lg"
+            onPress={() => router.back()}
+            >
               <ArrowLeft size={20} color="#49061A" />
             </TouchableOpacity>
 

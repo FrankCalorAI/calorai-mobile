@@ -215,7 +215,7 @@ const Dashboard: React.FC = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="p-3 space-y-10">
+        <View className="p-3 gap-3">
           {/* 3D Weight Progress Arena */}
           <View className="bg-gray-100 rounded-3xl p-4 border border-mintGreen/30 relative overflow-hidden shadow-md flex-col flex">
             {/* 3D Background Elements */}
