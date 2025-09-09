@@ -1,15 +1,7 @@
 import React, { useRef, useEffect } from "react";
+import { View, Text, TouchableOpacity, Animated } from "react-native";
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Animated,
-} from "react-native";
-import { useRouter } from "expo-router";
-import {
-  ArrowLeft,
+  ArrowDown,
   Flame,
   Trophy,
   Star,
@@ -22,9 +14,13 @@ import {
   TrendingUp,
 } from "lucide-react-native";
 
-const StreaksAndBadges: React.FC = () => {
+// @ts-ignore
+const StreaksAndBadges: React.FC = ({
+  closeSheet,
+}: {
+  closeSheet: () => void;
+}) => {
   const flameAnim = useRef(new Animated.Value(1)).current;
-  const router = useRouter();
 
   const currentStreak = 12;
   const longestStreak = 28;
@@ -173,14 +169,15 @@ const StreaksAndBadges: React.FC = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-mangoYellow/15">
+    <View className="flex-1">
       {/* Header */}
       <View className="bg-gradient-to-r from-blueViolet to-deepTeal px-5 py-6 rounded-b-2xl mx-2 mt-2">
         <View className="flex-row items-center">
-          <TouchableOpacity className="mr-4 p-2 rounded-xl bg-black/20"
-          onPress={() => router.back()}
+          <TouchableOpacity
+            className="mr-4 p-2 rounded-xl bg-black/20"
+            onPress={() => closeSheet()}
           >
-            <ArrowLeft size={22} color="black" />
+            <ArrowDown size={22} color="black" />
           </TouchableOpacity>
 
           <View className="flex-1">
@@ -198,10 +195,7 @@ const StreaksAndBadges: React.FC = () => {
         </View>
       </View>
 
-      <ScrollView
-        className="flex-1 px-3 py-6"
-        showsVerticalScrollIndicator={false}
-      >
+      <View className="flex-1 px-3 py-6">
         {/* Current Streak Section */}
         <View className="mb-8">
           <Text className="text-xl font-black text-blackCherry mb-4 px-2">
@@ -469,7 +463,9 @@ const StreaksAndBadges: React.FC = () => {
                     <Zap size={18} color="gold" />
                   </View>
                   <View>
-                    <Text className="font-black text-deepTeal">Protein Pro</Text>
+                    <Text className="font-black text-deepTeal">
+                      Protein Pro
+                    </Text>
                     <Text className="text-sm text-deepTeal/70 font-semibold">
                       Meet protein goals 14 days
                     </Text>
@@ -487,8 +483,8 @@ const StreaksAndBadges: React.FC = () => {
             </View>
           </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 };
 

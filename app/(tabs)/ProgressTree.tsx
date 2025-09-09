@@ -1,8 +1,9 @@
-import React, { useMemo, useRef } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Button } from "react-native";
+import { useRef, useMemo } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import StreaksAndBadges from "./streaksAndBadges";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import StreaksAndBadges from "../streaksAndBadges";
 
 import {
   ArrowLeft,
@@ -16,19 +17,13 @@ import {
   Calendar,
   MapPin,
 } from "lucide-react-native";
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
 
 const ProgressTree: React.FC = () => {
   const navigation = useNavigation();
-  const sheetRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ["50%", "90%"], []);
-
-  const openSheet = () => {
-    sheetRef.current?.present();
-  };
+  const BottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ["12", "90%"], []);
+  const openSheet = () => BottomSheetRef.current?.snapToIndex(1)
+  const closeSheet = () => BottomSheetRef.current?.close();
 
   const progressData = [
     {
@@ -378,10 +373,17 @@ const ProgressTree: React.FC = () => {
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={() => openSheet()}>
-          <Text>View Achievements</Text>
-        </TouchableOpacity>
+        <View className="flex-1">
+          {/* @ts-ignore */}
+          <Button title="See streaks and Badges" onPress={openSheet} />
+        </View>
       </ScrollView>
+      <BottomSheet ref={BottomSheetRef} snapPoints={snapPoints} enablePanDownToClose>
+        <BottomSheetScrollView className="bg-mangoYellow/15">
+          {/* @ts-ignore */}
+          <StreaksAndBadges closeSheet={closeSheet}/>
+        </BottomSheetScrollView>
+      </BottomSheet>
     </SafeAreaView>
   );
 };

@@ -3,8 +3,6 @@ import {
   Home,
   MessageCircle,
   TreePine,
-  Settings,
-  Award,
   User,
 } from "lucide-react-native";
 
@@ -23,7 +21,7 @@ export default function Layout() {
           height: 45,
           borderRadius: 30,
           backgroundColor: "#49061A",
-          marginHorizontal: 20,
+          marginHorizontal: 70,
           paddingBottom: 5,
           display: "flex",
           alignItems: "center",
@@ -59,13 +57,6 @@ export default function Layout() {
           tabBarIcon: ({ color, size }) => (
             <TreePine color={color} size={size} />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="streaksAndBadges"
-        options={{
-          title: "",
-          tabBarIcon: ({ color, size }) => <Award color={color} size={size} />,
         }}
       />
       <Tabs.Screen
